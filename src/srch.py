@@ -168,7 +168,6 @@ def main():
     start = time.time()
 
     find_matches(process_args(sys.argv[1:]))
-
     end = time.time()
     hours, rem = divmod(end - start, 3600)
     minutes, seconds = divmod(rem, 60)
