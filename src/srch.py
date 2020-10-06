@@ -61,6 +61,7 @@ class MatchHandler:
 
 
 def find_matches(arg_dict):
+    ipx = arg_dict['ipx']
     min_len = arg_dict['min']
     max_len = arg_dict['max']
     src_ord = arg_dict['ord']
@@ -72,7 +73,7 @@ def find_matches(arg_dict):
     target_file_lines = target_file.read().splitlines()
 
     for seq_len in range(min_len, max_len + 1):
-        src_files = [f for f in os.listdir(os.getcwd()) if f.startswith('sonuclar_' + str(seq_len))]
+        src_files = [f for f in os.listdir(os.getcwd()) if f.startswith(ipx + '_' + str(seq_len))]
         if not src_files:
             continue
 
@@ -113,15 +114,18 @@ def find_matches(arg_dict):
 
 def process_args(args):
     # example call:
-    # python srch.py -min 24 -max 34 -ord 1 -rid 20 -tol 15 -target ex.fna
+    # python srch.py -ipx sonuclar -min 24 -max 34 -ord 1 -rid 20 -tol 15 -target ex.fna
+    # ipx: input files prefix
     # min: minimum query length
     # max: maximum query length
     # ord: refer or query {1, 2}
     # rid: (optional) allowed percentage of in/del symbols (-) {0: none -, 100: all -}
     # tol: tolerance percentage of non similarity
     # target: target file to be searched
-    min_len, max_len, src_ord, rid, tol, target = None, None, None, None, None, None
+    ipx, min_len, max_len, src_ord, rid, tol, target = None, None, None, None, None, None, None
     for i, arg in enumerate(args):
+        if arg == '-ipx':
+            ipx = int(args[i + 1])
         if arg == '-min':
             min_len = int(args[i + 1])
         if arg == '-max':
@@ -135,7 +139,11 @@ def process_args(args):
         if arg == '-target':
             target = args[i + 1]
 
-    min_len, max_len, src_ord, rid, tol, target = 20, 24, 1, 0, 0, 'GCF_Copy.fna'
+    ipx, min_len, max_len, src_ord, rid, tol, target = 'sonuclar', 5, 26, 1, 10, 0, 'ex.fna'
+
+    if ipx is None:
+        print('-ipx is mandatory')
+        sys.exit(1)
 
     if min_len is None:
         print('-min is mandatory')
@@ -161,7 +169,7 @@ def process_args(args):
         print('-target is mandatory')
         sys.exit(1)
 
-    return {'min': min_len, 'max': max_len, 'ord': src_ord, 'rid': rid, 'tol': tol, 'target': target}
+    return {'ipx': ipx, 'min': min_len, 'max': max_len, 'ord': src_ord, 'rid': rid, 'tol': tol, 'target': target}
 
 
 def main():
