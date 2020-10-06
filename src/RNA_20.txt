@@ -1,6 +1,0 @@
-> CCTGAGCGAGGGCTGCCGAG
-Line:24, Src: sonuclar_20_1.txt: 2
-> AATCAACAAATGTCGTCAGA
-Line:6, Src: sonuclar_20_2.txt: 2
-> TGAATCAACAAATGTCGTCA
-Line:6, Src: sonuclar_20_2.txt: 12
