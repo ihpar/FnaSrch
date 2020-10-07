@@ -10,7 +10,7 @@ class MatchHandler:
 
     def save(self):
         if self.matches_dict:
-            file_name = 'RNA_' + str(self.size) + '.txt'
+            file_name = 'FNA_R_' + str(self.size) + '.txt'
             with open(file_name, 'w') as out_file:
                 for k, v in self.matches_dict.items():
                     out_file.write('> ' + k + '\n')
@@ -139,7 +139,7 @@ def process_args(args):
         if arg == '-target':
             target = args[i + 1]
 
-    ipx, min_len, max_len, src_ord, rid, tol, target = 'sonuclar', 5, 26, 1, 10, 0, 'ex.fna'
+    # ipx, min_len, max_len, src_ord, rid, tol, target = 'sonuclar', 5, 26, 1, 10, 10, 'ex.fna'
 
     if ipx is None:
         print('-ipx is mandatory')
